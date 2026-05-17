@@ -1,0 +1,13 @@
+{
+  "admin_dashboard": ["Yönetim Paneli", "Sistem özeti"],
+  "admin_users": ["Kullanıcılar", "Tüm kullanıcıları yönetin"],
+  "admin_match_koc": ["Öğrenci–Koç Eşleştirme", "İl bazlı filtreleme ve toplu eşleştirme"],
+  "admin_match_coord": ["Öğrenci–Koordinatör", "Vakıf eşleştirmesi"],
+  "admin_meetings": ["Görüşme Kayıtları", "İncele, onayla, güncelle"],
+  "admin_warnings": ["Koç Uyarıları", "Zamanında görüşmeyen koçlar"],
+  "admin_weeks": ["Hafta Tanımları", "Admin tarih listesi"],
+  "admin_messages": ["Mesajlar", "Veli ve öğrenci mesajları"],
+  "admin_sms": ["SMS Gönderimi", "Toplu ve bireysel"],
+  "admin_reports": ["Raporlar", "İstatistik ve performans"],
+  "admin_logs": ["Log Kayıtları", "Tüm değişiklikler"]
+}

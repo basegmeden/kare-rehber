@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="tr" class="layout-wide customizer-hide" dir="ltr" data-bs-theme="light" data-assets-path="https://demos.pixinvent.com/vuexy-html-admin-template/assets/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giriş | KARE Rehber</title>
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/fonts/iconify-icons.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/core.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/css/demo.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/pages/page-auth.css">
+<link rel="stylesheet" href="css/kare.css">
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/helpers.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/config.js"></script>
+</head>
+<body>
+<div class="authentication-wrapper authentication-cover">
+  <a href="index.html" class="app-brand auth-cover-brand">
+    <span class="app-brand-logo demo"><span class="text-primary fw-bold fs-2">K</span></span>
+    <span class="app-brand-text demo text-heading fw-bold">KARE Rehber</span>
+  </a>
+  <div class="authentication-inner row m-0">
+    <div class="d-none d-xl-flex col-xl-8 p-0">
+      <div class="auth-cover-bg d-flex justify-content-center align-items-center p-5">
+        <div class="text-white">
+          <h2 class="text-white mb-3">Öğrenci gelişimini şeffaf takip edin</h2>
+          <p class="mb-0 opacity-75">Koç, veli, koordinatör ve admin – haftalık görüşmeler, SMS ve raporlama tek platformda.</p>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex col-12 col-xl-4 align-items-center authentication-bg p-sm-12 p-6">
+      <div class="w-px-400 mx-auto">
+        <h4 class="mb-1">Hoş geldiniz</h4>
+        <p class="mb-6">Giriş yapmak için bilgilerinizi girin</p>
+        <form id="login-form">
+          <div class="mb-4">
+            <label class="form-label">Kullanıcı adı</label>
+            <input type="text" id="inp-username" class="form-control" placeholder="kullanici_adi" autocomplete="username">
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Şifre</label>
+            <input type="password" id="inp-password" class="form-control" placeholder="••••••••" autocomplete="current-password">
+          </div>
+          <div id="login-error" class="alert alert-danger d-none"></div>
+          <button class="btn btn-primary d-grid w-100 mb-4" type="submit" id="login-btn">Giriş Yap</button>
+        </form>
+        <!-- Test hesapları -->
+        <div class="mt-3">
+          <p class="text-muted small text-center mb-2">Hızlı giriş — role tıkla</p>
+          <div class="kare-role-grid" id="test-accounts">
+            <div class="kare-role-card" onclick="fillLogin('admin','admin123')">
+              <i class="ti tabler-shield-lock text-danger"></i>
+              <span>Admin</span>
+            </div>
+            <div class="kare-role-card" onclick="fillLogin('koc1','koc123')">
+              <i class="ti tabler-school text-primary"></i>
+              <span>Koç</span>
+            </div>
+            <div class="kare-role-card" onclick="fillLogin('koordinator1','koor123')">
+              <i class="ti tabler-building text-warning"></i>
+              <span>Koordinatör</span>
+            </div>
+            <div class="kare-role-card" onclick="fillLogin('veli1','veli123')">
+              <i class="ti tabler-heart text-info"></i>
+              <span>Veli</span>
+            </div>
+            <div class="kare-role-card" onclick="fillLogin('ogrenci1','ogrenci123')">
+              <i class="ti tabler-books text-success"></i>
+              <span>Öğrenci</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-center mb-2"><span class="text-muted">Kayıt formları:</span></p>
+        <p class="text-center"><a href="ogrenci-kayit.html">Öğrenci ön kayıt</a> · <a href="koc-basvuru.html">Koç başvuru</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/bootstrap.js"></script>
+<script src="js/kare.js"></script>
+<script>
+// Eğer zaten giriş yapılmışsa yönlendir
+(function() {
+  const user = kareCurrentUser();
+  const token = localStorage.getItem('kare_token');
+  if (token && user) {
+    const paths = { admin: 'admin/dashboard.html', koc: 'koc/dashboard.html', koordinator: 'koordinator/dashboard.html', veli: 'veli/dashboard.html', ogrenci: 'ogrenci/dashboard.html' };
+    location.href = paths[user.role] || 'admin/dashboard.html';
+  }
+})();
+
+function fillLogin(username, password) {
+  document.getElementById('inp-username').value = username;
+  document.getElementById('inp-password').value = password;
+  document.getElementById('inp-username').focus();
+}
+
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('login-btn');
+  const errEl = document.getElementById('login-error');
+  const username = document.getElementById('inp-username').value.trim();
+  const password = document.getElementById('inp-password').value;
+  if (!username || !password) { errEl.textContent = 'Kullanıcı adı ve şifre gerekli'; errEl.classList.remove('d-none'); return; }
+  btn.disabled = true;
+  btn.textContent = 'Giriş yapılıyor...';
+  errEl.classList.add('d-none');
+  const user = await kareLogin(username, password);
+  if (!user) {
+    errEl.textContent = 'Kullanıcı adı veya şifre hatalı';
+    errEl.classList.remove('d-none');
+    btn.disabled = false;
+    btn.textContent = 'Giriş Yap';
+    return;
+  }
+  const paths = { admin: 'admin/dashboard.html', koc: 'koc/dashboard.html', koordinator: 'koordinator/dashboard.html', veli: 'veli/dashboard.html', ogrenci: 'ogrenci/dashboard.html' };
+  location.href = paths[user.role] || 'admin/dashboard.html';
+});
+</script>
+</body>
+</html>

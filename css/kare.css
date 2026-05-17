@@ -1,0 +1,79 @@
+.role-btn.selected { pointer-events: none; } .week-chip.active { box-shadow: 0 0 0 2px var(--bs-primary); }
+
+/* ── Soft light theme ──────────────────────────────── */
+body { background-color: #f5f5f9 !important; }
+.layout-page { background-color: #f5f5f9 !important; }
+.card { background-color: #ffffff !important; box-shadow: 0 2px 6px rgba(47,43,61,.08) !important; }
+.layout-menu { background-color: #ffffff !important; }
+.layout-navbar { background-color: #ffffff !important; }
+.content-wrapper { background-color: #f5f5f9 !important; }
+.authentication-bg { background-color: #ffffff !important; }
+.auth-cover-bg { background: linear-gradient(135deg, #e8f4fd 0%, #d4eaf7 100%) !important; }
+
+/* ── Skeleton loading ──────────────────────────────── */
+@keyframes kare-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position:  600px 0; }
+}
+.kare-skel {
+  display: inline-block;
+  background: linear-gradient(90deg, #efefef 25%, #e3e3e3 50%, #efefef 75%);
+  background-size: 1200px 100%;
+  animation: kare-shimmer 1.4s infinite linear;
+  border-radius: 4px;
+  height: 13px;
+}
+.kare-skel-lg { height: 24px; }
+.kare-skel-sm { height: 10px; }
+.kare-skel-row td { padding-top: 13px !important; padding-bottom: 13px !important; vertical-align: middle; }
+
+/* ── Empty state ───────────────────────────────────── */
+.kare-empty { padding: 3rem 1rem; text-align: center; }
+.kare-empty .kare-empty-icon { font-size: 2.75rem; opacity: .25; display: block; margin-bottom: .75rem; }
+.kare-empty h6 { color: #6c757d; margin-bottom: .3rem; font-weight: 600; }
+.kare-empty p { font-size: .83rem; color: #adb5bd; margin: 0; }
+.kare-empty .btn { margin-top: 1rem; }
+
+/* ── Role cards (login) ────────────────────────────── */
+.kare-role-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: .5rem; margin-bottom: 1.25rem; }
+.kare-role-card {
+  border: 1.5px solid #e8eaf0;
+  border-radius: 10px;
+  padding: .7rem .3rem .5rem;
+  cursor: pointer;
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+  text-align: center;
+  background: #fff;
+  user-select: none;
+}
+.kare-role-card:hover { border-color: #696cff; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(105,108,255,.15); }
+.kare-role-card i { font-size: 1.6rem; display: block; margin-bottom: .3rem; }
+.kare-role-card span { font-size: .7rem; font-weight: 600; color: #6c757d; }
+
+/* ── Görüşme form – kategori kartları (light) ──────── */
+.category-card { border: 1.5px solid #e8eaf0 !important; border-radius: 10px; padding: 1.25rem; background: #fff; transition: border-color .2s; }
+.category-card:focus-within { border-color: #696cff !important; }
+.category-title { font-size: 1rem; font-weight: 600; color: #696cff !important; margin-bottom: .75rem; }
+.geri-bildirim-label { font-size: .78rem; font-weight: 600; color: #ea5455 !important; margin-bottom: .35rem; letter-spacing: .3px; }
+
+/* ── Görüşme ilerleme çubuğu ───────────────────────── */
+.kare-meet-progress { background: #fff; border: 1px solid #e8eaf0; border-radius: 10px; padding: .9rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+.kare-meet-progress .progress { flex: 1; height: 8px; border-radius: 4px; background: #f0f0f0; }
+.kare-meet-progress .kare-prog-text { font-size: .82rem; color: #6c757d; white-space: nowrap; min-width: 90px; text-align: right; }
+
+/* ── Navbar sayfa başlığı ──────────────────────────── */
+.kare-page-title { flex: 1; font-size: .875rem; font-weight: 600; color: #433c50; padding: 0 .75rem; display: flex; align-items: center; gap: .4rem; }
+.kare-page-title::before { content: ''; display: inline-block; width: 3px; height: 1rem; background: #696cff; border-radius: 2px; flex-shrink: 0; }
+
+/* ── Navbar dropdown — min genişlik ───────────────── */
+#layout-navbar .dropdown-menu { min-width: 180px; }
+#layout-navbar .dropdown-item h6 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+#layout-navbar .dropdown-item small { display: block; }
+
+/* ── Yıldız — hover sırası düzeltmesi ──────────────── */
+.star-group { direction: ltr; }
+.star-group .star { color: #d9d9d9; cursor: pointer; transition: color .12s; font-size: 1.4rem; line-height: 1; }
+.star-group .star.active { color: #ff9f43; }
+
+/* ── Toast konum ───────────────────────────────────── */
+.kare-toast-wrap { position: fixed; bottom: 1.5rem; end: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: .5rem; }

@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="tr" class="layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-bs-theme="light" data-assets-path="https://demos.pixinvent.com/vuexy-html-admin-template/assets/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Haftalık Görüşme | KARE Rehber</title>
+<link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/fonts/iconify-icons.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/core.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/css/demo.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="../css/kare.css">
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/helpers.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/config.js"></script>
+<style>
+.star-group { display: flex; gap: 4px; margin-bottom: 8px; }
+@media print {
+  .layout-menu, .layout-navbar, .footer-btns { display: none !important; }
+  .content-wrapper { padding: 0 !important; }
+  .category-card { border: 1px solid #ddd !important; }
+  .category-title { color: #696cff !important; }
+}
+</style>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <div class="app-brand demo">
+        <a href="../index.html" class="app-brand-link">
+          <span class="app-brand-logo demo"><span class="text-primary"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path fill-rule="evenodd" d="M0 0v6.85C0 6.85-.13 9.01 1.98 10.84L13.69 22l6.09-.08L18.8 9.88 16.5 7.17 9.24 0H0zm7.7 16.44L12.52 3.24 16.55 7.26 7.7 16.44zm8.08-15.92L23.66 0H32v6.88S31.83 9.18 30.66 10.4L19.78 22h-6.09L7.77 16.36 23.66 0H32z" fill="currentColor"/></svg></span></span>
+          <span class="app-brand-text demo menu-text fw-bold ms-2">KARE</span>
+        </a>
+        <a href="javascript:void(0)" class="layout-menu-toggle menu-link text-large ms-auto"><i class="ti tabler-x d-block d-xl-none"></i></a>
+      </div>
+      <div class="menu-inner-shadow"></div>
+      <ul class="menu-inner py-1" id="kare-menu-inner" data-role="koc" data-prefix="" data-exit="../index.html"></ul>
+    </aside>
+    <div class="layout-page">
+      <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i class="ti tabler-menu-2"></i></a>
+        </div>
+        <div class="navbar-nav-right d-flex align-items-center ms-auto">
+          <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <span class="avatar avatar-online"><span class="avatar-initial rounded-circle bg-label-primary">K</span></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><div class="d-flex"><div class="flex-grow-1"><h6 class="mb-0" id="kare-user-name">Kullanıcı</h6><small class="text-muted">Koç</small></div></div></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="javascript:void(0)" onclick="kareLogout()"><i class="ti tabler-logout me-2"></i>Çıkış</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+
+          <!-- Başlık -->
+          <div class="row mb-4">
+            <div class="col-12">
+              <h4 class="mb-0 text-primary">Öğrenci Değerlendirme Sistemi</h4>
+              <p class="text-muted mb-0">Haftalık geri bildirim formu</p>
+            </div>
+          </div>
+
+          <!-- Öğrenci & Hafta seçimi -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Öğrenci Seçimi</label>
+                  <select id="sel-student" class="form-select">
+                    <option value="">Öğrenci seçiniz...</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold">Hafta Seçimi</label>
+                  <select id="sel-week" class="form-select">
+                    <option value="">Hafta seçiniz...</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- İlerleme çubuğu -->
+          <div class="kare-meet-progress" id="meet-progress">
+            <span class="fw-semibold" style="font-size:.85rem;white-space:nowrap">Kategori doluluk</span>
+            <div class="progress"><div class="progress-bar bg-primary" id="prog-bar" style="width:0%;transition:width .3s"></div></div>
+            <span class="kare-prog-text" id="prog-label">0 / 6 dolduruldu</span>
+          </div>
+
+          <!-- 6 Kategori -->
+          <div class="row g-4 mb-4" id="categories-grid">
+            <!-- JS ile doldurulur -->
+          </div>
+
+          <!-- Butonlar -->
+          <div class="card footer-btns">
+            <div class="card-body d-flex justify-content-end gap-3 flex-wrap">
+              <button class="btn btn-outline-secondary" onclick="saveMeeting(false)">
+                <i class="ti tabler-device-floppy me-1"></i>Kaydet
+              </button>
+              <button class="btn btn-primary" onclick="saveMeeting(true)" id="send-btn">
+                <i class="ti tabler-send me-1"></i>Kaydet ve Gönder
+              </button>
+              <button class="btn btn-outline-danger" onclick="exportPDF()">
+                <i class="ti tabler-file-type-pdf me-1"></i>PDF'e Aktar
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/popper/popper.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/bootstrap.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/hammer/hammer.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/menu.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/main.js"></script>
+<script src="../js/kare.js"></script>
+<script>
+if (!kareGuard(['koc'])) throw '';
+
+const CATEGORIES = [
+  'Çalışma Stili',
+  'Motivasyon Durumu',
+  'Hedefler ve Başarı Durumu',
+  'Gelişim Serüveni',
+  'Ders Bazlı Gelişim',
+  'Hizmet Şuuru (vakıf ile irtibat, muhabbet, gidiş geliş)',
+];
+
+function updateMeetingProgress() {
+  const filled = CATEGORIES.filter((_, i) => {
+    const notes = (document.getElementById('notes-' + i)?.value || '').trim();
+    const stars = parseInt(document.getElementById('stars-' + i)?.dataset.val || '0');
+    return notes.length > 0 || stars > 0;
+  }).length;
+  const pct = Math.round((filled / CATEGORIES.length) * 100);
+  document.getElementById('prog-bar').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = filled + ' / ' + CATEGORIES.length + ' dolduruldu';
+  const bar = document.getElementById('prog-bar');
+  bar.className = 'progress-bar ' + (pct === 100 ? 'bg-success' : pct >= 50 ? 'bg-primary' : 'bg-warning');
+}
+
+// Kategori kartlarını oluştur
+function buildCategories() {
+  const grid = document.getElementById('categories-grid');
+  grid.innerHTML = CATEGORIES.map((name, i) => `
+    <div class="col-md-6">
+      <div class="category-card h-100">
+        <div class="category-title">${name}</div>
+        <div class="star-group" id="stars-${i}" data-val="0">
+          ${[1,2,3,4,5].map(v => `<span class="star" data-v="${v}" data-idx="${i}">★</span>`).join('')}
+        </div>
+        <div class="geri-bildirim-label">Geri Bildirim</div>
+        <textarea id="notes-${i}" class="form-control" rows="3" placeholder="Öğrenci hakkında geri bildirim..."></textarea>
+      </div>
+    </div>
+  `).join('');
+
+  // Yıldız tıklama
+  document.querySelectorAll('.star').forEach(star => {
+    star.addEventListener('click', () => {
+      const idx = star.dataset.idx;
+      const val = parseInt(star.dataset.v);
+      const group = document.getElementById('stars-' + idx);
+      group.dataset.val = val;
+      group.querySelectorAll('.star').forEach(s => {
+        s.classList.toggle('active', parseInt(s.dataset.v) <= val);
+      });
+      updateMeetingProgress();
+    });
+    star.addEventListener('mouseover', () => {
+      const idx = star.dataset.idx;
+      const val = parseInt(star.dataset.v);
+      document.getElementById('stars-' + idx).querySelectorAll('.star').forEach(s => {
+        s.style.color = parseInt(s.dataset.v) <= val ? '#ff9f43' : '';
+      });
+    });
+    star.addEventListener('mouseout', () => {
+      const idx = star.dataset.idx;
+      const group = document.getElementById('stars-' + idx);
+      const current = parseInt(group.dataset.val);
+      group.querySelectorAll('.star').forEach(s => {
+        s.style.color = '';
+        s.classList.toggle('active', parseInt(s.dataset.v) <= current);
+      });
+    });
+  });
+
+  // Textarea değişimde ilerlemeyi güncelle
+  document.querySelectorAll('[id^="notes-"]').forEach(ta => {
+    ta.addEventListener('input', updateMeetingProgress);
+  });
+
+  updateMeetingProgress();
+}
+
+function getCategoryData() {
+  return CATEGORIES.map((name, i) => ({
+    name,
+    rating: parseInt(document.getElementById('stars-' + i).dataset.val) || 1,
+    notes: document.getElementById('notes-' + i).value.trim(),
+  }));
+}
+
+async function saveMeeting(sendToAdmin) {
+  const selStudent = document.getElementById('sel-student');
+  const selWeek = document.getElementById('sel-week');
+  const studentID = parseInt(selStudent.value);
+  const weekID = parseInt(selWeek.value);
+  let valid = true;
+  if (!studentID) { kareMarkInvalid(selStudent, 'Lütfen bir öğrenci seçin'); valid = false; }
+  else kareClearInvalid(selStudent);
+  if (!weekID) { kareMarkInvalid(selWeek, 'Lütfen bir hafta seçin'); valid = false; }
+  else kareClearInvalid(selWeek);
+  if (!valid) return;
+
+  const categories = getCategoryData();
+  const hasNotes = categories.some(c => c.notes.length > 0);
+  if (!hasNotes && sendToAdmin) { kareToast('En az bir kategori için not giriniz', 'warning'); return; }
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+
+  const payload = {
+    student_id: studentID,
+    week_id: weekID,
+    categories,
+    notes: categories.map(c => `${c.name}: ${c.notes}`).filter(t => t.slice(-1) !== ':').join('\n\n'),
+  };
+
+  const r = await kareApi('POST', '/coach/meetings', payload);
+  if (r) {
+    kareToast(sendToAdmin ? 'Değerlendirme gönderildi ✓' : 'Kaydedildi');
+    if (sendToAdmin) {
+      // Reset form
+      document.getElementById('sel-student').value = '';
+      document.getElementById('sel-week').value = '';
+      buildCategories();
+    }
+  }
+  btn.disabled = false;
+}
+
+function exportPDF() {
+  const student = document.getElementById('sel-student');
+  const week = document.getElementById('sel-week');
+  const studentName = student.options[student.selectedIndex]?.text || 'Öğrenci';
+  const weekLabel = week.options[week.selectedIndex]?.text || 'Hafta';
+  document.title = `${studentName} — ${weekLabel} — Değerlendirme`;
+  window.print();
+}
+
+(async () => {
+  buildCategories();
+
+  const [weeksData, studentsData] = await Promise.all([
+    kareApi('GET', '/coach/weeks'),
+    kareApi('GET', '/coach/students'),
+  ]);
+
+  document.getElementById('sel-student').addEventListener('change', e => kareClearInvalid(e.target));
+  document.getElementById('sel-week').addEventListener('change', e => kareClearInvalid(e.target));
+
+  const selWeek = document.getElementById('sel-week');
+  if (weeksData && weeksData.length > 0) {
+    selWeek.innerHTML = '<option value="">Hafta seçiniz...</option>' +
+      weeksData.map(w => `<option value="${w.id}">${w.label}</option>`).join('');
+    selWeek.value = weeksData[0].id; // aktif hafta varsayılan
+  }
+
+  const selStudent = document.getElementById('sel-student');
+  if (studentsData && studentsData.length > 0) {
+    selStudent.innerHTML = '<option value="">Öğrenci seçiniz...</option>' +
+      studentsData.map(a => {
+        const u = a.student?.user || {};
+        return `<option value="${a.student_id}">${u.name || ''} ${u.surname || ''}</option>`;
+      }).join('');
+  } else {
+    selStudent.innerHTML = '<option value="">Atanmış öğrenci yok</option>';
+  }
+})();
+</script>
+</body>
+</html>

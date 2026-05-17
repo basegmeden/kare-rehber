@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="tr" data-bs-theme="light" data-assets-path="https://demos.pixinvent.com/vuexy-html-admin-template/assets/">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koç Başvuru | KARE</title>
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/core.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/css/demo.css">
+</head><body class="bg-body">
+<nav class="navbar navbar-expand-lg bg-navbar-theme"><div class="container-xxl">
+  <a class="navbar-brand fw-bold text-primary" href="index.html">KARE Rehber</a>
+  <a href="index.html" class="btn btn-sm btn-outline-primary">Giriş</a>
+</div></nav>
+<div class="container-xxl py-6"><div class="row justify-content-center"><div class="col-lg-8"><div class="card">
+  <div class="card-header"><h4 class="mb-0">Koç Ön Başvuru</h4><small class="text-muted">kare.ulued.org/koc-on-basvuru-formu</small></div>
+  <div class="card-body">
+    <div class="alert alert-info">Eksiksiz form → inceleme → SMS bilgilendirme → koç havuzuna ekleme</div>
+    <div id="success-msg" class="alert alert-success d-none"></div>
+    <form id="basvuru-form">
+      <div class="row g-4">
+        <div class="col-md-6"><label class="form-label">Ad *</label><input id="f-name" class="form-control" required></div>
+        <div class="col-md-6"><label class="form-label">Soyad *</label><input id="f-surname" class="form-control" required></div>
+        <div class="col-md-6"><label class="form-label">Telefon *</label><input id="f-phone" type="tel" class="form-control" placeholder="05XX XXX XX XX" required></div>
+        <div class="col-md-6"><label class="form-label">Deneyim</label><input id="f-exp" class="form-control" placeholder="5 yıl öğretmenlik"></div>
+        <div class="col-12"><label class="form-label">İl *</label>
+          <select id="f-city" class="form-select">
+            <option>İstanbul</option><option>Ankara</option><option>İzmir</option>
+            <option>Bursa</option><option>Antalya</option><option>Adana</option>
+            <option>Konya</option><option>Gaziantep</option><option>Diğer</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <button type="submit" id="submit-btn" class="btn btn-primary">Başvuruyu Gönder</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div></div></div></div>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/bootstrap.js"></script>
+<script src="js/kare.js"></script>
+<script>
+document.getElementById('basvuru-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Gönderiliyor...';
+  const data = await kareApi('POST', '/register/coach', {
+    name:       document.getElementById('f-name').value.trim(),
+    surname:    document.getElementById('f-surname').value.trim(),
+    phone:      document.getElementById('f-phone').value.trim(),
+    experience: document.getElementById('f-exp').value.trim(),
+    city:       document.getElementById('f-city').value,
+  });
+  if (data) {
+    document.getElementById('basvuru-form').classList.add('d-none');
+    const s = document.getElementById('success-msg');
+    s.textContent = 'Başvurunuz alındı. İncelendikten sonra SMS ile bilgilendirileceksiniz.';
+    s.classList.remove('d-none');
+  } else {
+    btn.disabled = false; btn.textContent = 'Başvuruyu Gönder';
+  }
+});
+</script>
+</body></html>

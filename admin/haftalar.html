@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="tr" class="layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-bs-theme="light" data-assets-path="https://demos.pixinvent.com/vuexy-html-admin-template/assets/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hafta Tanımları | KARE Rehber</title>
+<link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/fonts/iconify-icons.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/core.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/css/demo.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="../css/kare.css">
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/helpers.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/config.js"></script>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <div class="app-brand demo">
+        <a href="../index.html" class="app-brand-link">
+          <span class="app-brand-logo demo"><span class="text-primary"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path fill-rule="evenodd" d="M0 0v6.85C0 6.85-.13 9.01 1.98 10.84L13.69 22l6.09-.08L18.8 9.88 16.5 7.17 9.24 0H0zm7.7 16.44L12.52 3.24 16.55 7.26 7.7 16.44zm8.08-15.92L23.66 0H32v6.88S31.83 9.18 30.66 10.4L19.78 22h-6.09L7.77 16.36 23.66 0H32z" fill="currentColor"/></svg></span></span>
+          <span class="app-brand-text demo menu-text fw-bold ms-2">KARE</span>
+        </a>
+        <a href="javascript:void(0)" class="layout-menu-toggle menu-link text-large ms-auto"><i class="ti tabler-x d-block d-xl-none"></i></a>
+      </div>
+      <div class="menu-inner-shadow"></div>
+      <ul class="menu-inner py-1" id="kare-menu-inner" data-role="admin" data-prefix="" data-exit="../index.html"></ul>
+    </aside>
+    <div class="layout-page">
+      <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none"><a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i class="ti tabler-menu-2"></i></a></div>
+        <div class="navbar-nav-right d-flex align-items-center ms-auto">
+          <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown"><span class="avatar avatar-online"><span class="avatar-initial rounded-circle bg-label-primary">K</span></span></a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><h6 class="mb-0" id="kare-user-name">Kullanıcı</h6></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="javascript:void(0)" onclick="kareLogout()"><i class="ti tabler-logout me-2"></i>Çıkış</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="row"><div class="col-12 mb-4">
+            <h4 class="mb-1">Hafta Tanımları</h4>
+            <p class="text-muted mb-0">Görüşme haftalarını yönetin</p>
+          </div></div>
+          <!-- Add Week -->
+          <div class="card mb-4">
+            <div class="card-header"><h5 class="mb-0">Yeni Hafta Ekle</h5></div>
+            <div class="card-body">
+              <div class="row g-3">
+                <div class="col-md-2"><label class="form-label">Hafta No</label><input id="w-num" type="number" class="form-control" placeholder="4"></div>
+                <div class="col-md-3"><label class="form-label">Etiket</label><input id="w-label" class="form-control" placeholder="4. Hafta (18-24 Mayıs)"></div>
+                <div class="col-md-2"><label class="form-label">Başlangıç</label><input id="w-start" type="date" class="form-control"></div>
+                <div class="col-md-2"><label class="form-label">Bitiş</label><input id="w-end" type="date" class="form-control"></div>
+                <div class="col-md-1 d-flex align-items-end"><div class="form-check"><input class="form-check-input" type="checkbox" id="w-active"><label class="form-check-label" for="w-active">Aktif</label></div></div>
+                <div class="col-md-2 d-flex align-items-end"><button class="btn btn-primary w-100" onclick="addWeek()">Ekle</button></div>
+              </div>
+            </div>
+          </div>
+          <!-- Week List -->
+          <div class="card">
+            <div class="card-header"><h5 class="mb-0">Hafta listesi</h5></div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead><tr><th>Hafta</th><th>Başlangıç</th><th>Bitiş</th><th>Aktif</th><th>Kilitli</th><th></th></tr></thead>
+                <tbody id="weeks-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/popper/popper.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/bootstrap.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/hammer/hammer.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/menu.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/main.js"></script>
+<script src="../js/kare.js"></script>
+<script>
+if (!kareGuard(['admin'])) throw '';
+
+async function loadWeeks() {
+  const tbody = document.getElementById('weeks-tbody');
+  tbody.innerHTML = kareSkeleton(4, 6);
+  const weeks = await kareApi('GET', '/admin/weeks');
+  if (!weeks || weeks.length === 0) { tbody.innerHTML = kareEmptyState('tabler-database-off', 'Kayıt bulunamadı', 'Hafta tanımı yok'); return; }
+  tbody.innerHTML = weeks.map(w => {
+    const start = new Date(w.start_date).toLocaleDateString('tr-TR');
+    const end = new Date(w.end_date).toLocaleDateString('tr-TR');
+    return `<tr>
+      <td><strong>${w.label}</strong></td>
+      <td>${start}</td><td>${end}</td>
+      <td>${w.is_active ? '<span class="badge bg-label-success">Aktif</span>' : '<span class="badge bg-label-secondary">Pasif</span>'}</td>
+      <td>${w.is_locked ? '<span class="badge bg-label-warning">Kilitli</span>' : '<span class="badge bg-label-info">Açık</span>'}</td>
+      <td class="d-flex gap-1">
+        ${!w.is_active ? `<button class="btn btn-sm btn-success" onclick="setActive(${w.id})">Aktif Et</button>` : ''}
+        ${w.is_locked ? `<button class="btn btn-sm btn-outline-primary" onclick="unlock(${w.id})">Aç</button>` : `<button class="btn btn-sm btn-outline-secondary" onclick="lock(${w.id})">Kilitle</button>`}
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function addWeek() {
+  const num = parseInt(document.getElementById('w-num').value);
+  const label = document.getElementById('w-label').value.trim();
+  const start = document.getElementById('w-start').value;
+  const end = document.getElementById('w-end').value;
+  const isActive = document.getElementById('w-active').checked;
+  if (!label || !start || !end) { kareToast('Lütfen tüm alanları doldurun', 'warning'); return; }
+  const r = await kareApi('POST', '/admin/weeks', { week_number: num, label, start_date: start, end_date: end, is_active: isActive });
+  if (r) { kareToast('Hafta eklendi'); loadWeeks(); }
+}
+
+async function setActive(id) {
+  const r = await kareApi('PUT', '/admin/weeks/' + id, { is_active: true, is_locked: false });
+  if (r) { kareToast('Aktif hafta güncellendi'); loadWeeks(); }
+}
+async function lock(id) {
+  const r = await kareApi('PUT', '/admin/weeks/' + id, { is_active: false, is_locked: true });
+  if (r) { kareToast('Hafta kilitlendi'); loadWeeks(); }
+}
+async function unlock(id) {
+  const r = await kareApi('PUT', '/admin/weeks/' + id, { is_active: false, is_locked: false });
+  if (r) { kareToast('Hafta açıldı'); loadWeeks(); }
+}
+
+loadWeeks();
+</script>
+</body>
+</html>

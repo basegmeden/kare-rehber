@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html lang="tr" class="layout-navbar-fixed layout-menu-fixed layout-compact" dir="ltr" data-bs-theme="light" data-assets-path="https://demos.pixinvent.com/vuexy-html-admin-template/assets/">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Koordinatör Paneli | KARE Rehber</title>
+<link rel="icon" type="image/x-icon" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/img/favicon/favicon.ico">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/fonts/iconify-icons.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/css/core.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/css/demo.css">
+<link rel="stylesheet" href="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="../css/kare.css">
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/helpers.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/config.js"></script>
+</head>
+<body>
+<div class="layout-wrapper layout-content-navbar">
+  <div class="layout-container">
+    <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+      <div class="app-brand demo">
+        <a href="../index.html" class="app-brand-link">
+          <span class="app-brand-logo demo"><span class="text-primary"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path fill-rule="evenodd" d="M0 0v6.85C0 6.85-.13 9.01 1.98 10.84L13.69 22l6.09-.08L18.8 9.88 16.5 7.17 9.24 0H0zm7.7 16.44L12.52 3.24 16.55 7.26 7.7 16.44zm8.08-15.92L23.66 0H32v6.88S31.83 9.18 30.66 10.4L19.78 22h-6.09L7.77 16.36 23.66 0H32z" fill="currentColor"/></svg></span></span>
+          <span class="app-brand-text demo menu-text fw-bold ms-2">KARE</span>
+        </a>
+        <a href="javascript:void(0)" class="layout-menu-toggle menu-link text-large ms-auto"><i class="ti tabler-x d-block d-xl-none"></i></a>
+      </div>
+      <div class="menu-inner-shadow"></div>
+      <ul class="menu-inner py-1" id="kare-menu-inner" data-role="koordinator" data-prefix="" data-exit="../index.html"></ul>
+    </aside>
+    <div class="layout-page">
+      <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+        <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+          <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)"><i class="ti tabler-menu-2"></i></a>
+        </div>
+        <div class="navbar-nav-right d-flex align-items-center ms-auto">
+          <ul class="navbar-nav flex-row align-items-center">
+            <li class="nav-item navbar-dropdown dropdown-user dropdown">
+              <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                <span class="avatar avatar-online"><span class="avatar-initial rounded-circle bg-label-primary">K</span></span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#"><div class="d-flex"><div class="flex-grow-1"><h6 class="mb-0" id="kare-user-name">Kullanıcı</h6><small class="text-muted">Koordinatör</small></div></div></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="javascript:void(0)" onclick="kareLogout()"><i class="ti tabler-logout me-2"></i>Çıkış</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div class="content-wrapper">
+        <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="row"><div class="col-12 mb-4">
+            <h4 class="mb-1">Koordinatör Paneli</h4>
+            <p class="text-muted mb-0">Vakıf öğrenci takibi</p>
+          </div></div>
+          <div class="row g-6">
+            <div class="col-md-4"><div class="card"><div class="card-body"><span class="text-muted">Öğrencilerim</span><h3 class="mb-0" id="stat-students">–</h3></div></div></div>
+            <div class="col-md-4"><div class="card"><div class="card-body"><span class="text-muted">Bu hafta eksik</span><h3 class="mb-0 text-warning" id="stat-missing">–</h3></div></div></div>
+            <div class="col-md-4"><div class="card"><div class="card-body"><span class="text-muted">Tamamlanan</span><h3 class="mb-0 text-success" id="stat-done">–</h3></div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/popper/popper.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/bootstrap.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/node-waves/node-waves.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/libs/hammer/hammer.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/vendor/js/menu.js"></script>
+<script src="https://demos.pixinvent.com/vuexy-html-admin-template/assets/js/main.js"></script>
+<script src="../js/kare.js"></script>
+<script>
+if (!kareGuard(['koordinator'])) throw '';
+(async () => {
+  const [studentsData, meetingsData] = await Promise.all([
+    kareApi('GET', '/coordinator/students'),
+    kareApi('GET', '/coordinator/meetings'),
+  ]);
+  const total = studentsData ? studentsData.length : 0;
+  document.getElementById('stat-students').textContent = total;
+  if (meetingsData) {
+    document.getElementById('stat-done').textContent = meetingsData.length;
+    document.getElementById('stat-missing').textContent = Math.max(0, total - meetingsData.length);
+  }
+})();
+</script>
+</body>
+</html>
