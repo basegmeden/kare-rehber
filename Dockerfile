@@ -1,11 +1,10 @@
-FROM golang:1.23-alpine AS builder
+FROM golang:1.22-alpine AS builder
 WORKDIR /app
-RUN apk add --no-cache gcc musl-dev
 COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 COPY backend/ .
-RUN go build -o server ./cmd/server/main.go
-RUN go build -o seed ./cmd/seed/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o server ./cmd/server/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o seed ./cmd/seed/main.go
 
 FROM alpine:latest
 RUN apk --no-cache add ca-certificates
