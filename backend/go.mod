@@ -1,6 +1,6 @@
 module kare-rehber/backend
 
-go 1.26.3
+go 1.23
 
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect

@@ -1,4 +1,4 @@
-FROM golang:1.21-alpine AS builder
+FROM golang:1.23-alpine AS builder
 WORKDIR /app
 RUN apk add --no-cache gcc musl-dev
 COPY go.mod go.sum ./
@@ -12,6 +12,5 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=builder /app/server .
 COPY --from=builder /app/seed .
-COPY start.sh .
-RUN chmod +x start.sh
-CMD ["./start.sh"]
+
+CMD sh -c 'if [ ! -f "${DB_PATH:-kare_rehber.db}" ]; then echo "Seeding..."; ./seed; fi && exec ./server'
