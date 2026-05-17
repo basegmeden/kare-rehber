@@ -34,7 +34,7 @@ function Shell($role, $title, $subtitle, $body, $depth) {
   $exit = "${p}index.html"
   $h = Head $title $depth
   $logo = @'
-<span class="text-primary"><svg width="32" height="22" viewBox="0 0 32 22" fill="none"><path fill-rule="evenodd" d="M0 0v6.85C0 6.85-.13 9.01 1.98 10.84L13.69 22l6.09-.08L18.8 9.88 16.5 7.17 9.24 0H0zm7.7 16.44L12.52 3.24 16.55 7.26 7.7 16.44zm8.08-15.92L23.66 0H32v6.88S31.83 9.18 30.66 10.4L19.78 22h-6.09L7.77 16.36 23.66 0H32z" fill="currentColor"/></svg></span>
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#4F46E5"/><rect x="15" y="9" width="2" height="16" fill="#C7D2FE"/><rect x="7" y="10" width="8" height="15" rx="2" fill="#FFFFFF"/><rect x="17" y="10" width="8" height="15" rx="2" fill="#FFFFFF"/><rect x="13" y="6" width="5" height="7" rx="1" fill="#34D399"/></svg>
 '@
   @"
 
