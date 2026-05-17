@@ -56,6 +56,16 @@ func main() {
 	config.Load()
 	database.Connect()
 
+	// ── Admin ─────────────────────────────────────────────────────────────────
+	// ensureAdmin in database.Connect() already handles this idempotently.
+	// Verify admin exists so seed output is accurate.
+	var adminUser models.User
+	if err := database.DB.Where("username = ?", "admin").First(&adminUser).Error; err != nil {
+		fmt.Println("Admin kullanıcısı oluşturulamadı:", err)
+	} else {
+		fmt.Printf("✓ Admin kullanıcısı mevcut (ID: %d)\n", adminUser.ID)
+	}
+
 	// ── Weeks ─────────────────────────────────────────────────────────────────
 	weeks := []models.Week{
 		{
