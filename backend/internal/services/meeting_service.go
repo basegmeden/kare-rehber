@@ -33,10 +33,15 @@ func CanCoachEditMeeting(weekID uint) error {
 }
 
 // AdminEditMeeting updates a meeting and writes old data to meeting_logs.
-func AdminEditMeeting(meetingID, adminID uint, rating int, notes string) error {
+func AdminEditMeeting(meetingID, adminID uint, rating int, notes, status string) error {
 	var meeting models.Meeting
 	if err := database.DB.First(&meeting, meetingID).Error; err != nil {
 		return err
+	}
+
+	newStatus := meeting.Status
+	if status == string(models.MeetingStatusPending) || status == string(models.MeetingStatusApproved) || status == string(models.MeetingStatusRejected) {
+		newStatus = models.MeetingStatus(status)
 	}
 
 	oldRaw, _ := json.Marshal(map[string]interface{}{
@@ -47,7 +52,7 @@ func AdminEditMeeting(meetingID, adminID uint, rating int, notes string) error {
 	newRaw, _ := json.Marshal(map[string]interface{}{
 		"rating": rating,
 		"notes":  notes,
-		"status": string(meeting.Status),
+		"status": string(newStatus),
 	})
 
 	logEntry := models.MeetingLog{
@@ -63,6 +68,7 @@ func AdminEditMeeting(meetingID, adminID uint, rating int, notes string) error {
 	return database.DB.Model(&meeting).Updates(map[string]interface{}{
 		"rating": rating,
 		"notes":  notes,
+		"status": string(newStatus),
 	}).Error
 }
 

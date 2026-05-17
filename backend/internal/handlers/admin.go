@@ -313,14 +313,15 @@ func AdminEditMeeting(c *fiber.Ctx) error {
 	var body struct {
 		Rating int    `json:"rating"`
 		Notes  string `json:"notes"`
+		Status string `json:"status"`
 	}
 	if err := c.BodyParser(&body); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request"})
 	}
-	if err := services.AdminEditMeeting(uint(id), adminID, body.Rating, body.Notes); err != nil {
+	if err := services.AdminEditMeeting(uint(id), adminID, body.Rating, body.Notes, body.Status); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
-	logAudit(c, "edit_meeting", "meeting", uintPtr(uint(id)), map[string]interface{}{"rating": body.Rating})
+	logAudit(c, "edit_meeting", "meeting", uintPtr(uint(id)), map[string]interface{}{"rating": body.Rating, "status": body.Status})
 	return c.JSON(fiber.Map{"message": "Görüşme güncellendi"})
 }
 

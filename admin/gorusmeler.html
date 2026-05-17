@@ -86,6 +86,14 @@
                 <div class="modal-body">
                   <input type="hidden" id="edit-id">
                   <div class="mb-3">
+                    <label class="form-label">Durum</label>
+                    <select id="edit-status" class="form-select">
+                      <option value="pending">Onay bekliyor</option>
+                      <option value="approved">Onaylandı</option>
+                      <option value="rejected">Reddedildi</option>
+                    </select>
+                  </div>
+                  <div class="mb-3">
                     <label class="form-label">Puan (1–5)</label>
                     <input type="number" id="edit-rating" class="form-control" min="1" max="5">
                   </div>
@@ -136,15 +144,16 @@ async function loadMeetings() {
         <td>${kareBadge(m.status)}</td>
         <td class="d-flex gap-1">
           ${m.status === 'pending' ? `<button class="btn btn-sm btn-success" onclick="approve(${m.id})">Onayla</button><button class="btn btn-sm btn-danger" onclick="reject(${m.id})">Reddet</button>` : ''}
-          <button class="btn btn-sm btn-outline-secondary" onclick="openEdit(${m.id},${m.rating},${JSON.stringify(m.notes||'')})">Düzenle</button>
+          <button class="btn btn-sm btn-outline-secondary" data-id="${m.id}" data-rating="${m.rating}" data-status="${m.status}" data-notes="${(m.notes||'').replace(/"/g,'&quot;')}" onclick="openEdit(this)">Düzenle</button>
         </td>
       </tr>`).join('');
 }
 
-function openEdit(id, rating, notes) {
-  document.getElementById('edit-id').value = id;
-  document.getElementById('edit-rating').value = rating;
-  document.getElementById('edit-notes').value = notes;
+function openEdit(btn) {
+  document.getElementById('edit-id').value = btn.dataset.id;
+  document.getElementById('edit-rating').value = btn.dataset.rating;
+  document.getElementById('edit-status').value = btn.dataset.status;
+  document.getElementById('edit-notes').value = btn.dataset.notes;
   new bootstrap.Modal(document.getElementById('editModal')).show();
 }
 
@@ -152,8 +161,9 @@ async function saveEdit() {
   const id = document.getElementById('edit-id').value;
   const rating = parseInt(document.getElementById('edit-rating').value);
   const notes = document.getElementById('edit-notes').value.trim();
+  const status = document.getElementById('edit-status').value;
   if (rating < 1 || rating > 5) { kareToast('Puan 1-5 arasında olmalı', 'warning'); return; }
-  const r = await kareApi('PUT', '/admin/meetings/' + id, { rating, notes });
+  const r = await kareApi('PUT', '/admin/meetings/' + id, { rating, notes, status });
   if (r) {
     kareToast('Görüşme güncellendi');
     bootstrap.Modal.getInstance(document.getElementById('editModal')).hide();
