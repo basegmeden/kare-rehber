@@ -1,5 +1,5 @@
 // ─── API ──────────────────────────────────────────────────────────────────────
-const API_BASE = 'http://localhost:8080/api/v1';
+const API_BASE = 'https://kare-rehber-production-8950.up.railway.app/api/v1';
 
 async function kareApi(method, path, body) {
   const token = localStorage.getItem('kare_token');
